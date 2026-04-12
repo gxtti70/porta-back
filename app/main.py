@@ -1,9 +1,9 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Header 
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles  # <-- NUEVO IMPORT
+from fastapi.staticfiles import StaticFiles  
 from sqlmodel import Session, select
 from typing import List
-import os  # <-- NUEVO IMPORT
+import os  
 
 # Importaciones locales
 from .database import create_db_and_tables, get_session
@@ -13,13 +13,10 @@ from .routers import ai
 app = FastAPI(title="Santiago's Portfolio API")
 
 # --- CONFIGURACIÓN PARA IMÁGENES LOCALES ---
-# Esto crea la carpeta 'uploads' si no existe
 UPLOAD_DIR = "uploads"
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
 
-# "Montamos" la carpeta para que sea accesible vía URL
-# Ahora: http://localhost:8000/static/imagen.jpg mostrará el archivo
 app.mount("/static", StaticFiles(directory=UPLOAD_DIR), name="static")
 
 # --- CONFIGURACIÓN DE CORS ---
@@ -42,14 +39,44 @@ app.include_router(ai.router)
 def read_root():
     return {"status": "online", "message": "API Persistente Lista"}
 
-@app.get("/projects", response_model=List[Project], tags=["Projects"])
-def read_projects(session: Session = Depends(get_session)):
+# --- ENDPOINT BILINGÜE MEJORADO ---
+@app.get("/projects", tags=["Projects"])
+def read_projects(
+    session: Session = Depends(get_session),
+    accept_language: str = Header(default="es") 
+):
     projects = session.exec(select(Project)).all()
-    return projects
+    
+    # 1. Limpieza del Header: Tomamos solo el primer idioma de la lista
+    # Esto evita errores cuando el navegador manda: "en-US,en;q=0.9,es;q=0.8"
+    primary_lang = accept_language.split(',')[0].lower()
+    is_english = primary_lang.startswith("en")
+    
+    # DEBUG: Revisa tu terminal de Python para ver qué llega del Front
+    print(f"--- DEBUG: Idioma recibido: {primary_lang} | ¿Es inglés?: {is_english} ---")
+
+    translated_projects = []
+    
+    for p in projects:
+        # Convertimos a diccionario para trabajar sobre una copia
+        project_dict = p.model_dump() if hasattr(p, "model_dump") else p.dict()
+        
+        if is_english:
+            # Si es inglés, intentamos usar los campos _en
+            project_dict["description"] = project_dict.get("description_en") or project_dict.get("description")
+            project_dict["explanation"] = project_dict.get("explanation_en") or project_dict.get("explanation")
+        else:
+            # Si es español o cualquier otro, nos aseguramos de usar los campos base
+            project_dict["description"] = project_dict.get("description")
+            project_dict["explanation"] = project_dict.get("explanation")
+        
+        translated_projects.append(project_dict)
+                
+    return translated_projects
 
 @app.post("/projects", response_model=Project, tags=["Projects"])
 def create_project(project: Project, session: Session = Depends(get_session)):
     session.add(project)
     session.commit()
     session.refresh(project)
-    return project
+    return project 
