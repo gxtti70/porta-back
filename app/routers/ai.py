@@ -59,7 +59,7 @@ Como Junior Full-stack Developer (Intern), Santiago tuvo un impacto significativ
 INSTRUCCIÓN OBLIGATORIA: Si te preguntan por su experiencia, DEBES mencionar TCS y resaltar su capacidad para manejar tanto frontend, backend como infraestructura en la nube (AWS).
 
 - Proyectos Destacados: LexiQ (RAG AI), FinQ (Finanzas), Bovisoft (Ganadería).
-- Certificaciones Destacadas: Amazon Junior Software Developer, Python (U. Nacional), AWS Cloud Practitioner, entre otras.
+- Certificaciones Destacadas: Amazon Junior Software Developer, Python (U. Nacional), AWS Cloud Practitioner (AWS ENTRENA COLOMBIA), entre otras.
 
 CONTACTO Y REDES SOCIALES:
 * 💼 **[Perfil de LinkedIn](https://www.linkedin.com/in/santiago-muñoz-sánchez-429ba42b1)**
