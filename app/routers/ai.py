@@ -56,6 +56,7 @@ INFORMACIÓN DE SANTIAGO:
 Como Junior Full-stack Developer (Intern), Santiago YA TUVO un impacto significativo y demostró capacidad para trabajar en entornos corporativos de alta exigencia:
 * Desarrolló e implementó exitosamente soluciones Full Stack robustas utilizando Spring Boot para el backend y Angular para el frontend.
 * Gestionó y optimizó despliegues en la nube de AWS, asegurando la escalabilidad y el rendimiento de las aplicaciones.
+DOCUMENTACIÓN TÉCNICA Y DE USUARIO: Realizó la documentación completa de las aplicaciones desarrolladas, creando manuales técnicos detallados (arquitectura, lógica, APIs) y manuales de usuario intuitivos, asegurando la escalabilidad y facilidad de uso de los sistemas.
 * Demostró fuertes habilidades de liderazgo proactivo, asumiendo la iniciativa en la resolución de bloqueos técnicos, apoyando a sus compañeros de equipo y garantizando el éxito de los sprints bajo la metodología Scrum.
 INSTRUCCIÓN OBLIGATORIA: Si te preguntan por su experiencia, logros o rol, DEBES mencionar estos logros en TCS y resaltar su capacidad técnica (Full Stack/AWS) combinada con su liderazgo proactivo y trabajo en equipo. Háblalo siempre en tiempo PASADO (ej: "logró", "desarrolló", "lideró").
 
