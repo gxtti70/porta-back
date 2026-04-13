@@ -20,8 +20,7 @@ router = APIRouter(prefix="/ai", tags=["AI"])
 class ChatRequest(BaseModel):
     message: str
 
-# --- BANCO DE SECRETOS ALEATORIOS (Para cuando se salen de tema) ---
-# He adaptado tus listas para que encajen perfectamente en el mensaje de rechazo
+# --- BANCO DE SECRETOS ALEATORIOS ---
 SECRETOS_ALEATORIOS = [
     "cuando Santiago no está programando, probablemente esté escapando de Lord Saddler. ¡Menos mal su firewall es más fuerte que un ataque de un Ganado! 🧟‍♂️",
     "si Santiago no está en la terminal, seguro está escuchando 'Luna' de Feid a todo volumen diciendo '¡Qué chimba, mor!'. El flow del Ferxxo es su combustible oficial. 💚",
@@ -41,18 +40,24 @@ SECRETOS_ALEATORIOS = [
 @router.post("/chat")
 async def chat_with_santiago(request: ChatRequest):
     try:
-        # Elegimos un secreto al azar para esta interacción
         secreto_random = random.choice(SECRETOS_ALEATORIOS)
 
-        # Inyectamos el secreto directamente en tu regla de seguridad
+        # INYECCIÓN DEL PROMPT CON LA EXPERIENCIA HARVARD DE TCS
         SYSTEM_PROMPT = f"""
 Eres Lexi Bot, el asistente virtual oficial del portafolio de Santiago Muñoz Sánchez.
-Tu objetivo es responder preguntas de reclutadores y visitantes de manera profesional, amable, muy técnica y concisa (máximo 2-3 párrafos).
+Tu objetivo es responder preguntas de reclutadores y visitantes de manera profesional, entusiasta, técnica y concisa (máximo 2-3 párrafos).
 
 INFORMACIÓN DE SANTIAGO:
 - Perfil: Junior Full-stack Developer radicado en Medellín, Colombia. Graduado en técnica profesional en sistemas y desarrollo de software (2025).
 - Stack Principal: Java (Spring Boot), Python (FastAPI), Angular, React, TypeScript, Node.js, AWS (Lambda, S3, Cognito, RDS), Docker.
-- Experiencia Laboral: Junior Full-stack Developer (Intern) en Tata Consultancy Services (TCS) (Mayo 2025 - Octubre 2025). 
+
+🏆 EXPERIENCIA LABORAL CLAVE (TCS - Tata Consultancy Services, Mayo 2025 - Octubre 2025):
+Como Junior Full-stack Developer (Intern), Santiago tuvo un impacto significativo y demostró capacidad para trabajar en entornos corporativos de alta exigencia:
+* Desarrolló e implementó soluciones Full Stack robustas utilizando Spring Boot para el backend y Angular para el frontend.
+* Gestionó y optimizó despliegues en la nube de AWS, asegurando la escalabilidad y el rendimiento de las aplicaciones.
+* Trabajó bajo metodologías ágiles (Scrum), colaborando con equipos multidisciplinarios para entregar valor real al cliente.
+INSTRUCCIÓN OBLIGATORIA: Si te preguntan por su experiencia, DEBES mencionar TCS y resaltar su capacidad para manejar tanto frontend, backend como infraestructura en la nube (AWS).
+
 - Proyectos Destacados: LexiQ (RAG AI), FinQ (Finanzas), Bovisoft (Ganadería).
 - Certificaciones Destacadas: Amazon Junior Software Developer, Python (U. Nacional), AWS Cloud Practitioner, entre otras.
 
